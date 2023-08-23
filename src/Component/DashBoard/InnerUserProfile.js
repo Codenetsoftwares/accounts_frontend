@@ -55,24 +55,31 @@ const InnerUserProfile = () => {
       email: editedData.email,
       contactnumber: editedData.contactNumber,
       websitedetail: editedData.websitedetail,
+      bankDetail:{
+        accountHolderName:editedData.accountHolderName,
+        bankName:editedData.bankName,
+        accountNumber:Number(editedData.accountNumber),
+        ifscCode:editedData.ifscCode,
+      }
     };
+    console.log("data====>",data);
     // put Api Fetching
-    AccountService.inneruserprofile(id, data, auth.user)
-      .then((res) => {
-        console.log("res", res);
-        if (res.status === 201) {
-          toast.success("Profile updated");
-        } else {
-          toast.error("Failed");
-        }
-      })
+    // AccountService.inneruserprofile(id, data, auth.user)
+    //   .then((res) => {
+    //     console.log("res", res);
+    //     if (res.status === 201) {
+    //       toast.success("Profile updated");
+    //     } else {
+    //       toast.error("Failed");
+    //     }
+    //   })
 
-      .catch((err) => {
-        if (!err.response) {
-          toast.error(err.message);
-          return;
-        }
-      });
+    //   .catch((err) => {
+    //     if (!err.response) {
+    //       toast.error(err.message);
+    //       return;
+    //     }
+    //   });
   };
   console.log("User Deatils",foundObject);
 
@@ -192,7 +199,7 @@ const InnerUserProfile = () => {
                         Transaction Details
                       </Link>
                       {isAccordionOpen && (
-                        <div className="accordion">
+                        <div className="accordion" >
                           <div className="accordion-item">
                             <h2 className="accordion-header">
                               <button
@@ -205,11 +212,54 @@ const InnerUserProfile = () => {
                             </h2>
                             <div className="accordion-collapse collapse show">
                               <div className="accordion-body">
-                                <p>Account Name: {foundObject.accountName}</p>
-                                <p>
-                                  Account Number: {foundObject.accountNumber}
-                                </p>
-                                <p>IFSC Code: {foundObject.ifscCode}</p>
+                              <div className="row">
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="bankName" className="form-label">Bank Name:</label>
+              <input
+                type="text"
+                id="bankName"
+                className="form-control"
+                value={isEditing ? editedData.bankName : foundObject.bankDetail.bankName}
+                disabled={!isEditing}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="accountNumber" className="form-label">Account Number:</label>
+              <input
+                type="text"
+                id="accountNumber"
+                className="form-control"
+                value={isEditing ? editedData.accountNumber : foundObject.bankDetail.accountNumber}
+                disabled={!isEditing}
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="ifscCode" className="form-label">IFSC Code:</label>
+              <input
+                type="text"
+                id="ifscCode"
+                className="form-control"
+                value={isEditing ? editedData.ifscCode : foundObject.bankDetail.ifscCode}
+                disabled={!isEditing}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="accountHolderName" className="form-label">Account Holder Name:</label>
+              <input
+                type="text"
+                id="accountHolderName"
+                className="form-control"
+                value={isEditing ? editedData.accountHolderName : foundObject.bankDetail.accountHolderName}
+                disabled={!isEditing}
+              />
+            </div>
+          </div>
+        </div>
+                                
+                                
                               </div>
                             </div>
                           </div>
