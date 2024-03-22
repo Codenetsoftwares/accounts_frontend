@@ -21,6 +21,8 @@ const InnerUserProfile = () => {
   const [username, setUsername] = useState([]);
   const [IntroducerName, setIntroducerName] = useState([]);
   const [filteredOptions, setFilteredOptions] = useState([]);
+  const [filteredOptions1, setFilteredOptions1] = useState([]);
+  const [filteredOptions2, setFilteredOptions2] = useState([]);
   const location = useLocation();
 
   // Calling Single Introducer Name API
@@ -141,6 +143,53 @@ const InnerUserProfile = () => {
     setFilteredOptions([]); // Clear the filtered options when an option is selected
   };
 
+  const handleIntroducerChange1 = (e) => {
+    const { name, value } = e.target;
+    setEditedData({ ...editedData, [name]: value });
+
+    // Filter the options based on the input value
+
+    const filtered = value
+      ? IntroducerName.filter((data) =>
+          data.userName.toLowerCase().includes(value.toLowerCase())
+        )
+      : [];
+
+    setFilteredOptions1(filtered);
+  };
+
+  const handleOptionSelect1 = (e, option) => {
+    console.log(e.target.name);
+    const { name } = e.target;
+    setEditedData({ ...editedData, [name]: option.userName });
+
+    // setSearchTerm1(option.userName);
+    setFilteredOptions1([]); // Clear the filtered options when an option is selected
+  };
+
+  const handleIntroducerChange2 = (e) => {
+    const { name, value } = e.target;
+    setEditedData({ ...editedData, [name]: value });
+
+    // Filter the options based on the input value
+
+    const filtered = value
+      ? IntroducerName.filter((data) =>
+          data.userName.toLowerCase().includes(value.toLowerCase())
+        )
+      : [];
+
+    setFilteredOptions(filtered);
+  };
+
+  const handleOptionSelect2 = (e, option) => {
+    console.log(e.target.name);
+    const { name } = e.target;
+    setEditedData({ ...editedData, [name]: option.userName });
+
+    // setSearchTerm1(option.userName);
+    setFilteredOptions2([]); // Clear the filtered options when an option is selected
+  };
   return (
     <div
       className="d-flex align-items-center justify-content-center"
@@ -245,7 +294,7 @@ const InnerUserProfile = () => {
                                     value={
                                       isEditing
                                         ? editedData.introducersUserName ??
-                                          "N.A"
+                                          foundObject.introducersUserName
                                         : foundObject.introducersUserName ??
                                           "N.A"
                                     }
@@ -289,22 +338,22 @@ const InnerUserProfile = () => {
                                     value={
                                       isEditing
                                         ? editedData.introducersUserName1 ??
-                                          "N.A"
+                                          foundObject.introducersUserName1
                                         : foundObject.introducersUserName1 ??
                                           "N.A"
                                     }
-                                    onChange={(e) => handleIntroducerChange(e)}
+                                    onChange={(e) => handleIntroducerChange1(e)}
                                   />
                                 </div>
-                                {filteredOptions.length > 0 && (
+                                {filteredOptions1.length > 0 && (
                                   <div className="list-group">
-                                    {filteredOptions.map((option, index) => (
+                                    {filteredOptions1.map((option, index) => (
                                       <button
                                         key={index}
                                         name="introducersUserName1"
                                         className="list-group-item list-group-item-action"
                                         onClick={(e) =>
-                                          handleOptionSelect(e, option)
+                                          handleOptionSelect1(e, option)
                                         }
                                       >
                                         {option.userName}
@@ -333,22 +382,22 @@ const InnerUserProfile = () => {
                                     value={
                                       isEditing
                                         ? editedData.introducersUserName2 ??
-                                          "N.A"
+                                          foundObject.introducersUserName2
                                         : foundObject.introducersUserName2 ??
                                           "N.A"
                                     }
-                                    onChange={(e) => handleIntroducerChange(e)}
+                                    onChange={(e) => handleIntroducerChange2(e)}
                                   />
                                 </div>
-                                {filteredOptions.length > 0 && (
+                                {filteredOptions2.length > 0 && (
                                   <div className="list-group">
-                                    {filteredOptions.map((option, index) => (
+                                    {filteredOptions2.map((option, index) => (
                                       <button
                                         key={index}
                                         name="introducersUserName2"
                                         className="list-group-item list-group-item-action"
                                         onClick={(e) =>
-                                          handleOptionSelect(e, option)
+                                          handleOptionSelect2(e, option)
                                         }
                                       >
                                         {option.userName}
