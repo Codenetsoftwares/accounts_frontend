@@ -52,7 +52,7 @@ const FilterTransaction = ({
       });
   };
 
-  const test = ["transactionType", "subAdminName", "websiteName", "bankName"];
+  const test = ["transactionType", "subAdminId", "websiteName", "bankName"];
 
   const handleClick = (key, value) => {
     let nArr = [...documentView];
@@ -115,7 +115,7 @@ const FilterTransaction = ({
   const handleSubAdmin = (e) => {
     const value = e.target.value;
     setSubAdmin(value);
-    handleClick("subAdminName", value);
+    handleClick("subAdminId", value);
     handlePage(1);
   };
 

@@ -69,13 +69,13 @@ const IntroducerStatement = () => {
       });
   }, [id, auth]);
   console.log(documentView);
-  useEffect(() => {
-    if (auth.user) {
-      TransactionSercvice.subAdminList(auth.user).then((res) => {
-        setSubAdminlist(res.data);
-      });
-    }
-  }, [auth]);
+  // useEffect(() => {
+  //   if (auth.user) {
+  //     TransactionSercvice.subAdminList(auth.user).then((res) => {
+  //       setSubAdminlist(res.data);
+  //     });
+  //   }
+  // }, [auth]);
 
   const handelDate = () => {
     const sdate = moment(startDatevalue, "DD-MM-YYYY HH:mm").toDate();
@@ -441,9 +441,7 @@ const IntroducerStatement = () => {
 
                         <td>
                           {data.balance ? (
-                            <p className="col fs-6 ">
-                              {data.balance}
-                            </p>
+                            <p className="col fs-6 ">{data.balance}</p>
                           ) : (
                             "N.A"
                           )}
@@ -705,9 +703,7 @@ const IntroducerStatement = () => {
 
                         <td>
                           {data.balance ? (
-                            <p className="col fs-6 ">
-                              {data.balance}
-                            </p>
+                            <p className="col fs-6 ">{data.balance}</p>
                           ) : (
                             "N.A"
                           )}

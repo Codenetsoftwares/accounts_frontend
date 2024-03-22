@@ -51,7 +51,7 @@ const WebsiteStatement = () => {
   const [minAmount, setMinAmount] = useState(0);
   const [maxAmount, setMaxAmount] = useState(0);
 
-  const test = ["transactionType", "subAdminName", "websiteName", "bankName"];
+  const test = ["transactionType", "subAdminId", "websiteName", "bankName"];
   const handleClick = (key, value) => {
     let nArr = [...documentView];
     // const originalData = [...documentView];
@@ -77,7 +77,7 @@ const WebsiteStatement = () => {
   const handleSubAdmin = (e) => {
     const value = e.target.value;
     setSubAdmin(value);
-    handleClick("subAdminName", value);
+    handleClick("subAdminId", value);
     setPage(1);
   };
 
@@ -621,7 +621,7 @@ const WebsiteStatement = () => {
                                     <p className="col fs-6 text-break">N.A</p>
                                   )}
                                 </td>
-                                <td>{data.subAdminName}</td>
+                                <td>{data.subAdminId}</td>
                                 <td>
                                   {data.paymentMethod && (
                                     <p className="col fs-6">{data.userName}</p>
@@ -785,7 +785,7 @@ const WebsiteStatement = () => {
                                     <p className="col fs-6 text-break">N.A</p>
                                   )}
                                 </td>
-                                <td>{data.subAdminName}</td>
+                                <td>{data.subAdminId}</td>
                                 <td>
                                   {data.paymentMethod && (
                                     <p className="col fs-6">{data.userName}</p>
@@ -1016,7 +1016,7 @@ const WebsiteStatement = () => {
                                     <p className="col fs-6 text-break">N.A</p>
                                   )}
                                 </td>
-                                <td>{data.subAdminName}</td>
+                                <td>{data.subAdminId}</td>
                                 <td>
                                   {data.paymentMethod && (
                                     <p className="col fs-6">{data.userName}</p>
@@ -1180,7 +1180,7 @@ const WebsiteStatement = () => {
                                     <p className="col fs-6 text-break">N.A</p>
                                   )}
                                 </td>
-                                <td>{data.subAdminName}</td>
+                                <td>{data.subAdminId}</td>
                                 <td>
                                   {data.paymentMethod && (
                                     <p className="col fs-6">{data.userName}</p>

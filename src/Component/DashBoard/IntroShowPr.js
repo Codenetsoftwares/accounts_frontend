@@ -11,7 +11,6 @@ import moment from "moment";
 import { useLocation } from "react-router-dom";
 import TransactionSercvice from "../../Services/TransactionSercvice";
 
-
 const IntroShowPr = () => {
   const location = useLocation();
   const { Transaction } = location.state || {};
@@ -40,8 +39,14 @@ const IntroShowPr = () => {
     setAccountData(Transaction);
   }, [Transaction]);
 
-  console.log(documentView)
-  const test = ["transactionType", "subAdminName", "websiteName", "bankName", "introducerId"];
+  console.log(documentView);
+  const test = [
+    "transactionType",
+    "subAdminId",
+    "websiteName",
+    "bankName",
+    "introducerId",
+  ];
 
   const handleClick = (key, value) => {
     let nArr = [...documentView];
@@ -67,7 +72,6 @@ const IntroShowPr = () => {
     setToggle(false);
   };
 
-
   useEffect(() => {
     if (auth.user) {
       TransactionSercvice.subAdminList(auth.user).then((res) => {
@@ -85,12 +89,16 @@ const IntroShowPr = () => {
   }, [auth]);
 
   useEffect(() => {
-    AccountService.website(auth.user).then((res) => setWebsiteList(res.data));
+    TransactionSercvice.websiteList(auth.user).then((res) =>
+      setWebsiteList(res.data)
+    );
   }, [auth]);
 
-  useEffect(() => {
-    AccountService.introducerId(auth.user).then((res) => setIntroducerList(res.data));
-  }, [auth]);
+  // useEffect(() => {
+  //   AccountService.introducerId(auth.user).then((res) =>
+  //     setIntroducerList(res.data)
+  //   );
+  // }, [auth]);
 
   const handleReset = () => {
     setSelect("");
@@ -120,7 +128,7 @@ const IntroShowPr = () => {
   const handleSubAdmin = (e) => {
     const value = e.target.value;
     setSubAdmin(value);
-    handleClick("subAdminName", value);
+    handleClick("subAdminId", value);
   };
 
   const handleIntroducer = (e) => {
@@ -141,20 +149,16 @@ const IntroShowPr = () => {
     handleClick("websiteName", value);
   };
 
-
   return (
     <div className="container-fuid">
       <div className="container mt-5">
         <div
           className="card card-body rounded-1 "
-          style={{ backgroundColor: '#fff4ec' }}
+          style={{ backgroundColor: "#fff4ec" }}
         >
-          <div className="row row-cols-2 row-cols-lg-3 g-2 g-lg-2" >
-
-            <div className="d-flex col pt-3 justify-content-center"  >
-              <h6 className="fw-bold text-nowrap pt-2" >
-                Transaction
-              </h6>
+          <div className="row row-cols-2 row-cols-lg-3 g-2 g-lg-2">
+            <div className="d-flex col pt-3 justify-content-center">
+              <h6 className="fw-bold text-nowrap pt-2">Transaction</h6>
               <select
                 className="form-control mx-3 w-50"
                 value={select || ""}
@@ -163,9 +167,8 @@ const IntroShowPr = () => {
                 style={{
                   // boxShadow: " 17px 15px 27px -9px rgba(0,0,0,0.41)",
                   border: "0.5px solid black",
-                  borderRadius: "6px"
+                  borderRadius: "6px",
                 }}
-
               >
                 <option className="d-flex" value="All">
                   <b>All</b>
@@ -176,7 +179,7 @@ const IntroShowPr = () => {
                 <option className="d-flex" value="Withdraw">
                   <b>Withdraw</b>
                 </option>
-                <option className="d-flex" value="Manual-Bank-Deposit">
+                {/* <option className="d-flex" value="Manual-Bank-Deposit">
                   <b>Manual Bank Deposit</b>
                 </option>{" "}
                 <option className="d-flex" value="Manual-Bank-Withdraw">
@@ -184,16 +187,16 @@ const IntroShowPr = () => {
                 </option>
                 <option className="d-flex" value="Manual-Website-Deposit">
                   <b>Manual Website Deposit</b>
-                </option>{" "}
-                <option className="d-flex" value="Manual-Website-Withdraw">
+                </option> */}
+                {/* <option className="d-flex" value="Manual-Website-Withdraw">
                   <b>Manual Website Withdraw</b>
-                </option>
+                </option> */}
               </select>
             </div>
 
-            <div className="d-flex col pt-3 justify-content-center" >
+            <div className="d-flex col pt-3 justify-content-center">
               <h6 className="fw-bold text-nowrap pt-2"> SubAdminlist</h6>
-              <select
+              {/* <select
                 className="form-control mx-3 w-50"
                 value={subAdmin || ""}
                 autoComplete="off"
@@ -208,15 +211,15 @@ const IntroShowPr = () => {
                 <option selected>Select subAdmin</option>
                 {subAdminlist.map((data) => {
                   return (
-                    <option key={data._id} value={data.firstname}>
-                      {data.firstname}
+                    <option key={data._id} value={data.userName}>
+                      {data.userName}
                     </option>
                   );
                 })}
-              </select>
+              </select> */}
             </div>
 
-            <div className="d-flex col pt-3 justify-content-center"  >
+            <div className="d-flex col pt-3 justify-content-center">
               <h6 className="fw-bold text-nowrap pt-2"> BankNameList</h6>
               <select
                 className="form-control mx-3 w-50"
@@ -241,7 +244,7 @@ const IntroShowPr = () => {
               </select>
             </div>
 
-            <div className="d-flex col pt-3 justify-content-center" >
+            <div className="d-flex col pt-3 justify-content-center">
               <h6 className="fw-bold text-nowrap pt-2"> WebsitesList</h6>
               <select
                 className="form-control mx-3 w-50"
@@ -266,9 +269,10 @@ const IntroShowPr = () => {
               </select>
             </div>
 
-
-
-            <div className="row row-cols-4 row-cols-lg-4 g-2 g-lg-3 w-100 " style={{ paddingLeft: '5rem' }} >
+            <div
+              className="row row-cols-4 row-cols-lg-4 g-2 g-lg-3 w-100 "
+              style={{ paddingLeft: "5rem" }}
+            >
               <div className="d-flex col justify-content-center ">
                 <h6 className="fw-bold text-nowrap pt-2 pr-2"> Start Date</h6>
                 <Datetime
@@ -326,7 +330,6 @@ const IntroShowPr = () => {
           </div>
         </div>
 
-
         {toggle ? (
           <small>
             {/* Normal View */}
@@ -369,7 +372,6 @@ const IntroShowPr = () => {
                   <th scope="col text-break" className="text-primary">
                     Remarks
                   </th>
-
                 </tr>
               </thead>
               {/* </div> */}
@@ -430,7 +432,7 @@ const IntroShowPr = () => {
                             <p className="col fs-6 text-break">N.A</p>
                           )}
                         </td>
-                        <td>{data.subAdminName}</td>
+                        <td>{data.userName}</td>
                         <td>
                           <p className="col fs-6">
                             {data.bankName ? data.bankName : "N.A"}
@@ -442,7 +444,6 @@ const IntroShowPr = () => {
                           </p>
                         </td>
                         <td>{data.remarks}</td>
-
                       </tr>
                     );
                   })
@@ -554,7 +555,7 @@ const IntroShowPr = () => {
                             <p className="col fs-6 text-break">N.A</p>
                           )}
                         </td>
-                        <td>{data.subAdminName}</td>
+                        <td>{data.userName}</td>
                         <td>
                           <p className="col fs-6">
                             {data.bankName ? data.bankName : "N.A"}
@@ -576,7 +577,6 @@ const IntroShowPr = () => {
             </table>
           </small>
         )}
-
       </div>
     </div>
   );
